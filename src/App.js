@@ -5,7 +5,9 @@ import todoServices from './services/todos'
 function App() {
   const [todos, setTodos] = useState([])
   const [newItem, setNewItem] = useState('')
-  
+  const [edit, setEdit] = useState(false)
+  const [newEdit, setNewEdit] = useState('')
+
   useEffect(() => {
     console.log('effect')
     todoServices
@@ -20,10 +22,10 @@ function App() {
 
   const todoList = () => 
     todos.map(todo =>
-      <li>
+      <li key={todo.id}>
         {todo.todo}
         <button onClick={() => deleteItem(todo.id)}>delete</button>
-        <button onClick={() => editItem(todo.id)}>edit</button>
+        <button onClick={() => handleEditMode(todo.id)}>edit</button>
       </li>
     )
   
@@ -34,12 +36,56 @@ function App() {
         setTodos(todos.filter(todo => todo.id !== id))
       })
   }
+
+  const conditionalForm = () => {
+    if (edit === true) {
+      return editMode()
+    } else {
+      return addMode()
+    }
+  }
+
+  const addMode = () => 
+    <form onSubmit={addItem}>
+    Enter something todo:
+    <input
+      value={newItem}
+      onChange={handleTodoChange}
+    />
+    <button type="submit">Add</button>
+  </form>
   
-  const editItem = id => {
+  const editMode = () =>
+    <form onSubmit={editItem}>
+    Enter something todo:
+    <input
+      value={newItem}
+      onChange={handleTodoChange}
+    />
+    <button type="submit">Edit</button>
+  </form>
+
+  const handleEditMode = id => {
     const todo = todos.find(x => x.id == id)
     setNewItem(todo.todo)
+    setNewEdit(id)
+    setEdit(true)
   }
-  const addItem = (event) => {
+
+  const editItem = event => {
+    event.preventDefault()
+    const item = todos.find(todo => todo.id === newEdit)
+    const changedItem = {...item, todo: newItem}
+
+    todoServices
+      .update(newEdit, changedItem)
+      .then(updatedItem => {
+        setTodos(todos.map(todo => todo.id === newEdit ? updatedItem : todo))
+        setNewItem('')
+        setEdit(false)
+      })
+  }
+  const addItem = event => {
     event.preventDefault()
 
     const itemObject = {
@@ -63,14 +109,7 @@ function App() {
       <ul>
         {todoList()}
       </ul>
-      <form onSubmit={addItem}>
-        Enter something todo:
-        <input
-          value={newItem}
-          onChange={handleTodoChange}
-        />
-        <button type="submit">Add</button>
-      </form>
+      {conditionalForm()}
     </div>
   )
 }
