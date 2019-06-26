@@ -1,24 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [todos, setTodos] = useState([])
+  const [newItem, setNewItem] = useState('')
+  
+  const todoList = () => 
+    todos.map(todo =>
+      <li>
+        {todo.todo}
+      </li>
+    )
+  
+
+  const addItem = (event) => {
+    event.preventDefault()
+
+    const itemObject = {
+      todo: newItem
+    }
+
+    setTodos(todos.concat(itemObject))
+
+  }
+
+  const handleTodoChange = (event) => {
+    setNewItem(event.target.value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <h1>Todo List</h1>
+      <ul>
+        {todoList()}
+      </ul>
+      <form onSubmit={addItem}>
+        Enter something todo:
+        <input
+          value={newItem}
+          onChange={handleTodoChange}
+        />
+        <button type="submit">Add</button>
+      </form>
     </div>
   );
 }
