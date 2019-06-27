@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import todoServices from './services/todos'
+import Form from './components/form'
+import TodoItems from './components/todoItems'
 
 function App() {
   const [todos, setTodos] = useState([])
@@ -22,20 +24,23 @@ function App() {
 
   const todoList = () => 
     todos.map(todo =>
-      <li key={todo.id}>
-        {todo.todo}
-        <button onClick={() => deleteItem(todo.id)}>delete</button>
-        <button onClick={() => handleEditMode(todo.id)}>edit</button>
-      </li>
+      <TodoItems
+        todo={todo.todo}
+        delete={() => deleteItem(todo.id)}
+        edit={() => handleEditMode(todo.id)}
+        labelDelete="delete"
+        labelEdit="edit"
+      />
+    
     )
   
   const deleteItem = id => {
-    todoServices
-      .deleteItem(id)
-      .then(() => {
-        setTodos(todos.filter(todo => todo.id !== id))
-      })
-  }
+      todoServices
+        .deleteItem(id)
+        .then(() => {
+          setTodos(todos.filter(todo => todo.id !== id))
+        })
+    }
 
   const conditionalForm = () => {
     if (edit === true) {
@@ -46,24 +51,20 @@ function App() {
   }
 
   const addMode = () => 
-    <form onSubmit={addItem}>
-    Enter something todo:
-    <input
+    <Form
+      onSubmit={addItem}
       value={newItem}
       onChange={handleTodoChange}
+      buttonText="Add"
     />
-    <button type="submit">Add</button>
-  </form>
-  
+
   const editMode = () =>
-    <form onSubmit={editItem}>
-    Enter something todo:
-    <input
+    <Form
+      onSubmit={editItem}
       value={newItem}
       onChange={handleTodoChange}
+      buttonText="Edit"
     />
-    <button type="submit">Edit</button>
-  </form>
 
   const handleEditMode = id => {
     const todo = todos.find(x => x.id == id)
