@@ -11,6 +11,8 @@ function App() {
   const [newItem, setNewItem] = useState('')
   const [edit, setEdit] = useState(false)
   const [newEdit, setNewEdit] = useState('')
+  const [selected, setSelected] = useState(false)
+
   useEffect(() => {
     console.log('effect')
     todoServices
@@ -28,6 +30,7 @@ function App() {
       <TodoItems
         key={todo.id}
         todo={todo.todo}
+        select={selectedItem}
         delete={() => deleteItem(todo.id)}
         edit={() => handleEditMode(todo.id)}
         labelDelete="delete"
@@ -36,6 +39,11 @@ function App() {
     
     )
 
+
+  const selectedItem = () => {
+    setSelected(true)
+    console.log(selected)
+  }
   const deleteItem = id => {
       todoServices
         .deleteItem(id)
@@ -112,7 +120,7 @@ function App() {
         <h1>Todo List</h1>
       </div>
       {conditionalForm()}
-        <ul class="list-group">
+        <ul className="list-group">
           {todoList()}
         </ul>
     </div>

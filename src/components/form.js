@@ -5,16 +5,17 @@ const Form = (props) => {
   
   return (
       <form onSubmit={props.onSubmit}>
-      <div class="input-group mb-3">
+      <div className="input-group mb-3">
         <input
+          onClick={props.select}
           value={props.value}
           onChange={props.onChange}
           placeholder="What do you need to do?"
-          class="form-control"
+          className="form-control"
           aria-describedby="button-addon"
         />
-        <div class="input-group-append">
-          <button class="btn btn-secondary" id="button-addon" type="submit">{props.buttonText}</button>
+        <div className="input-group-append">
+          <button className="btn btn-secondary" id="button-addon" type="submit">{props.buttonText}</button>
         </div>
       </div>
     </form>
