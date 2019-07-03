@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import todoServices from './services/todos'
 import Form from './components/form'
 import TodoItems from './components/todoItems'
+
 
 function App() {
   const [todos, setTodos] = useState([])
   const [newItem, setNewItem] = useState('')
   const [edit, setEdit] = useState(false)
   const [newEdit, setNewEdit] = useState('')
-
   useEffect(() => {
     console.log('effect')
     todoServices
@@ -25,6 +26,7 @@ function App() {
   const todoList = () => 
     todos.map(todo =>
       <TodoItems
+        key={todo.id}
         todo={todo.todo}
         delete={() => deleteItem(todo.id)}
         edit={() => handleEditMode(todo.id)}
@@ -33,7 +35,7 @@ function App() {
       />
     
     )
-  
+
   const deleteItem = id => {
       todoServices
         .deleteItem(id)
@@ -105,12 +107,14 @@ function App() {
   }
 
   return (
-    <div >
-      <h1>Todo List</h1>
-      <ul>
-        {todoList()}
-      </ul>
+    <div className='container'>
+      <div className='header'>
+        <h1>Todo List</h1>
+      </div>
       {conditionalForm()}
+        <ul class="list-group">
+          {todoList()}
+        </ul>
     </div>
   )
 }

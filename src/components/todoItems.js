@@ -1,12 +1,12 @@
 import React from 'react'
-import Button from './button'
+import '../App.css';
 
 const TodoItems = (props) => {
     return (
-        <li>
+        <li onClick={props.function} className="list-group-item">
             {props.todo}
-            <button onClick={props.delete}>{props.labelDelete}</button>
-            <button onClick={props.edit}>{props.labelEdit}</button>
+            <button class="btn btn-outline-dark" onClick={props.delete}>{props.labelDelete}</button>
+            <button class="btn btn-outline-dark" onClick={props.edit}>{props.labelEdit}</button>
         </li>
     )
 }
