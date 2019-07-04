@@ -33,15 +33,19 @@ form {
   display: flex;
   flex-direction: row;
   height: 50px;
+  
 }
 
 input {
   flex-grow: 1;
   margin: 0;
+
 }
 
 ul {
   width: 600px;
+  -webkit-box-shadow: 3px 6px 15px 0px rgba(0,0,0,0.59); 
+  box-shadow: 3px 6px 15px 0px rgba(0,0,0,0.59);
 }
 
 li {
