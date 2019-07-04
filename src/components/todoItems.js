@@ -3,6 +3,7 @@ import '../App.css';
 
 const TodoItems = (props) => {
     const [isHovered, setIsHovered] = useState(false)
+    const [isClicked, setIsClicked] = useState(false)
 
     const handleEnter = () => {
         setIsHovered(true)
@@ -12,14 +13,20 @@ const TodoItems = (props) => {
     const handleLeave = () => {
         setIsHovered(false)
     }
+
+    const handleMouseDown = () => {
+        setIsClicked(!isClicked)
+    }
+
+
     return (
         <li 
-            onClick={props.select} 
             className="list-group-item"
             onMouseEnter={() => handleEnter()}
             onMouseLeave={() => handleLeave()}
+            onMouseDown={() => handleMouseDown()}
         >
-            {props.todo}
+            {isClicked ? (<strike>{props.todo}</strike>) : props.todo}
             {isHovered ? (<button className="btn btn-outline-dark" onClick={props.delete}>{props.labelDelete}</button>) : (
                 <div></div>
             )}

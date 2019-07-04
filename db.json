@@ -1,28 +1,16 @@
 {
   "todos": [
     {
-      "todo": "yeet",
-      "id": 4
+      "todo": "Get some milk",
+      "id": 1
     },
     {
-      "todo": "Test",
-      "id": 12
+      "todo": "Eat some grass",
+      "id": 2
     },
     {
-      "todo": "This is a todo",
-      "id": 13
-    },
-    {
-      "todo": "Here we go",
-      "id": 14
-    },
-    {
-      "todo": "This is a longer version of a note",
-      "id": 15
-    },
-    {
-      "todo": "hooooooooooow looooooooooong caaaaaaaaaaan iiiiiiiii maaaaaaaaake iiiiiiit",
-      "id": 16
+      "todo": "Mow the lawn",
+      "id": 3
     }
   ]
 }
