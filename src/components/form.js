@@ -7,7 +7,6 @@ const Form = (props) => {
       <form onSubmit={props.onSubmit}>
       <div className="input-group mb-3">
         <input
-          onClick={props.select}
           value={props.value}
           onChange={props.onChange}
           placeholder="What do you need to do?"

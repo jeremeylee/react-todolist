@@ -30,7 +30,7 @@ function App() {
       <TodoItems
         key={todo.id}
         todo={todo.todo}
-        select={selectedItem}
+        select={() => selectedItem(todo.id)}
         delete={() => deleteItem(todo.id)}
         edit={() => handleEditMode(todo.id)}
         labelDelete="delete"
@@ -40,10 +40,11 @@ function App() {
     )
 
 
-  const selectedItem = () => {
+  const selectedItem = (id) => {
     setSelected(true)
-    console.log(selected)
+    console.log(id)
   }
+  
   const deleteItem = id => {
       todoServices
         .deleteItem(id)
@@ -77,7 +78,7 @@ function App() {
     />
 
   const handleEditMode = id => {
-    const todo = todos.find(x => x.id == id)
+    const todo = todos.find(x => x.id === id)
     setNewItem(todo.todo)
     setNewEdit(id)
     setEdit(true)
